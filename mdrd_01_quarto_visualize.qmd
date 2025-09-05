@@ -1,0 +1,105 @@
+---
+title: "Import and visualize"
+format: html
+---
+
+# Instructions
+
+Welcome to your first project milestone! In this project, you will use the **tidyverse** to investigate real data related to renal disease.
+
+According to the [CDC](https://www.cdc.gov/kidneydisease/basics.html), more than 1 in 7 of adults in the US are estimated to have chronic kidney disease. By the end of the project, we'd like to find a way to compare the effect of four different treatments on the progression of chronic kidney disease. We will split our work into milestones that build on each other to iteratively explore the data.
+
+## How to complete a milestone
+
+For each milestone, you will need to: 
+
+1. **Recreate a result,** like a plot, table, or model. This will require you to use the skills you have studied that week.
+
+2. **Extend the result.** Explore a new question about the data--this will provide an opportunity to both apply the skills you learned that week and to teach yourself something new. We will provide suggestions each week, but you are encouraged to explore any aspect of the data that interests you. Alternatively, apply and extend the skills you learned that week by working with your own data. Remember, being able to teach yourself new parts of a computer language is what will make you a truly competent open source programmer---and we are here to help.
+
+You'll share your extension with your groupmates at the weekly meeting, and show them how they could do the same.
+
+## The `mdrd` data set 
+
+The data comes from the Modification of Diet in Renal Disease (MDRD) study from the National Institute of Diabetes and Digestive and Kidney Diseases (NIDDK): https://repository.niddk.nih.gov/studies/mdrd/
+
+To learn more about the variables contained in the data set, refer to the data dictionary: https://rsacdn.link/milestones/internal/v2/tidyverse/renal-treatment/assets/mdrd_dictionary.html
+
+# Milestone
+
+```{r}
+#| label: setup
+#| include: false
+library(tidyverse)
+
+```
+
+## Import and Visualize
+
+In this milestone, you'll become familiar with the `mdrd` data set and create your first visualization.
+
+## Recreation
+
+### Part 1 - Import
+
+In the code chunk below, use a command from the readr package to read in the mdrd data set.
+
+* The mdrd data set lives in the file `mdrd.csv`, which is stored in the `data/` folder in your working directory.
+* Save the data set as an object named `mdrd`.
+
+```{r}
+#| label: recreation-import
+
+```
+
+### Part 2 - Explore
+
+Use R to inspect the contents of `mdrd`:
+
+- Display the contents of `mdrd` 
+- Use `nrow()` to find the number of observations in `mdrd`
+- Use `mean()` to find the average glomerular filtration rate (GFR) 
+- Use `count()` from the dplyr package to count the number of observations associated with each patient
+- Use `summary()` to generate a summary of the data set
+
+*Hint: you may want to look up the help pages for each of these functions.*
+
+Write your code in the following chunk:
+
+```{r}
+#| label: recreation-explore
+
+```
+
+### Part 3 - Visualize
+
+Using the File Explorer on the left, navigate to the `images/` directory, then click on `milestone01.png` to open an image in the Editor pane.
+
+You should see a plot that displays observations from **patients who did not drop out of the study**.
+
+Use `ggplot()` in the chunk below to re-create the plot above. **Note** Before plotting, you will first need to filter your data set to only include observations from patients who did not drop out of the study.
+
+```{r}
+#| label: recreation-visualize
+
+```
+
+## Extension
+
+Using the code chunk below, investigate a research question about this data, using the visualization skills you learned this week. Some ideas:
+
+1. How does the distribution of GFR differ between patients who dropped out of the study and those who did not? Consider exploring these distributions with other geoms.
+2. What does the distribution of GFR values look like within individual treatment groups?
+3. What relationships do you see between GFR and other variables of interest in the data set?
+4. [any other research question of interest]
+
+Alternately, working with a data set of your own, complete the following: 
+
+1. Read in your data
+2. Filter your data using a logical test/condition 
+3. Graph this data subset using at least one geom 
+
+```{r}
+#| label: extension
+
+```

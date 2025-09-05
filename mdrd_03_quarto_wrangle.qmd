@@ -1,0 +1,100 @@
+---
+title: "Wrangle rows and columns"
+format: html
+---
+
+# Instructions
+
+This week, you learned several more functions from the dplyr package (pronounced DEE-ply-er). These functions help you work with the columns and rows in your data set.
+
+You'll use these skills to investigate change in GFR over time for five different stages of kidney disease.
+
+To learn more about the variables contained in the data set, refer to the data dictionary: https://rsacdn.link/milestones/internal/v2/tidyverse/renal-treatment/assets/mdrd_dictionary.html
+
+# Milestone
+
+```{r}
+#| label: setup
+#| include: false
+.groups <-  c("class", "groups")
+
+# Load your packages here
+
+```
+
+## Create and select columns
+
+In this milestone, you'll create a new variable that classifies the stage of kidney disease for each observation based on the GFR value. You'll then compute the change in GFR over time for each stage and patient group. 
+
+## Recreation
+
+### Part 1 - Import
+
+Before you begin, you will need to import your data set. Use the code chunk below to read the data from the data file `mdrd.csv`, which is stored in the `data/` folder in your working directory. Be sure to save the data to an object named `mdrd`.
+
+```{r}
+#| label: recreation-import
+
+```
+
+### Part 2 - Create and Summarize
+
+Run the code below to see a table.
+
+```{r}
+#| label: recreate-this
+#| message: false
+solution <- readr::read_csv("data/milestone03.csv")
+solution
+```
+
+Your task is to use what you've learned about the dplyr package to transform `mdrd` into this table. You will need to:
+
+1. Create a new column named `kidney_stage` that represents the current stage of chronic kidney disease based on GFR. Use the information below to create the new column with the following values:
+
+    - `1` if `gfr` is greater than or equal to 90
+    - `2` if `gfr` is greater than or equal to 60 (and less than 90)  
+    - `3` if `gfr` is greater than or equal to 30 (and less than 60)
+    - `4` if `gfr` is greater than or equal to 15 (and less than 30)
+    - `5` otherwise
+    
+*Hint: the `case_when()` function from dplyr is useful for situations like this.*  
+  
+2. Group the result by `kidney_stage` and `ptid`.
+
+3. Summarize the `gfr_slope` for each patient. *Hint: You can reuse your code from Milestone 2 to calculate `gfr_slope`.*
+
+Work in the code chunk below. Save the result as `mdrd_stages`.
+
+```{r}
+#| label: recreation-create
+
+```
+
+Run the following code chunk to test whether you have the same answer as the solution:
+
+```{r}
+#| label: compare
+#| eval: false
+waldo::compare(mdrd_stages, solution, tolerance = 1e-4, ignore_attr = .groups)
+```
+
+## Extension
+
+Using the code chunk below, investigate a research question about this data, using the additional data wrangling skills you learned this week. Some ideas:
+
+1. Which stage(s) of kidney disease are most common in this sample?
+2. How many patients in this sample progress through different stages of kidney disease over the course of the study? Do all patients who progress through different stages demonstrate improved kidney function over time? Are there any patients that get worse?
+3. Do you think a patient's current stage of kidney disease would be a useful way to predict the change in GFR over time (`gfr_slope`)?
+4. [any other research question of interest]
+
+Alternately, working with a data set of your own, complete the following:
+
+1. Read in your data
+2. Create at least one new variable in your data set (using `mutate()` and/or `summarize()`), or use other dplyr functions to alter your data
+3. Use your updated data set to create at least one graph and/or table
+
+```{r}
+#| label: extension
+
+```

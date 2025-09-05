@@ -1,0 +1,156 @@
+---
+title: "Work with data types"
+format: html
+---
+
+# Instructions
+
+This week, you worked with three new data types in R -- factors, strings, and date-times -- using the forcats, stringr, and lubridate packages, respectively.
+
+In this milestone, you'll work with the treatment type data contained in `mdrd` to investigate whether diet type affects change in GFR over time. 
+
+To learn more about the variables contained in the data set(s), refer to the data dictionary: https://rsacdn.link/milestones/internal/v2/tidyverse/renal-treatment/assets/mdrd_dictionary.html
+
+# Milestone
+
+```{r}
+#| label: setup
+#| include: false
+```
+
+## Data types
+
+In this milestone, you'll use stringr and forcats to investigate whether change in GFR over time varies between the very low-protein diet and the low-protein diet. 
+
+## Recreation
+
+### Part 1 - Import
+
+To begin, read the data from `mdrd.csv` which lives in your `data/` directory to an object named `mdrd`:
+
+```{r}
+#| label: recreation-import
+
+```
+
+You will be working with a tidied version of the mdrd data set. Run the code chunk below, which contains code from milestone 5, to create `mdrd_tidy`. 
+
+```{r}
+#| label: recreation-create-tidied
+mdrd_tidy <- 
+  mdrd %>%
+  pivot_longer(
+    cols = starts_with("diet"),
+    names_to = "treatment",
+    values_to = "value"
+  ) %>%
+  filter(value == 1) %>%
+  select(-value)
+
+mdrd_tidy
+```
+
+### Part 2 - Working with data types
+
+Run the code below to see a table.
+
+```{r}
+#| label: recreate-this-1
+#| message: false
+solution <- readr::read_csv("data/milestone05.csv")
+solution
+```
+
+Your task is to use what you've learned about the stringr package to transform `mdrd_tidy` into this table. You will need to:
+
+1. Create two new columns, `diet` and `bp`, by separating the character strings in `treatment`. (*Hint* Look up the help page for `tidyr::separate()`)
+
+2. Remove `"diet"` from the values in `diet`. Also remove `"bp"` from the values in `bp`. (*Hint* Look up the help page for `stringr::str_remove()`)
+
+3. Recode the values in `diet` to make them more informative. Recode the values such that:
+
+    + `"k"` = `"very low-protein"`
+    + `"l"` = `"low-protein"`
+
+4. Recode the values in `bp` such that `"norm"` becomes `"normal"`.
+
+Work in the code chunk below. Save the result as `treatments`; we will use it in Part 3.
+
+```{r}
+#| label: recreation-seasons
+
+```
+
+Run the following code chunk to test whether you have the same answer as the solution:
+
+```{r}
+#| label: compare
+#| eval: false
+waldo::compare(treatments, solution, tolerance = 1e-4, ignore_attr = .groups)
+```
+
+### Part 3 - The role of factor orders in visualizations
+
+Now that you have `diet` and `bp` variables, you can compute and visualize summaries for each diet and blood pressure group in the same manner as previous milestones. Run the chunk below to view a summary table.
+
+```{r}
+#| label: summary
+treatments_summary <- 
+  treatments %>%
+  group_by(diet, bp, ptid) %>%
+  summarize(
+    gfr_slope = (last(gfr, order_by = months) - first(gfr, order_by = months)) / max(months)
+  ) %>%
+  filter(!is.nan(gfr_slope)) %>% 
+  ungroup()
+
+treatments_summary
+```
+
+After you have run the chunk above to create `treatments_summary`, run the chunk below to visualize the data of `treatments_summary`.
+
+```{r}
+#| label: summary-plot
+#| eval: false
+ggplot(treatments_summary, aes(x = diet, y = gfr_slope)) +
+  geom_boxplot()
+```
+
+This is a nice plot, but the order of `diet` on the x axis is arbitrary (alphabetical). We may want to give the `diet` a more principled order before we publish this plot.
+
+#### Visualization
+
+Using the File Explorer on the left, navigate to the `images/` directory, then click on `milestone05.png` to open an image in the Editor pane.
+
+Notice that "very low-protein" now appears to the left of "low-protein" on the x-axis. Your task is to recreate this plot.
+
+Use the chunk below to recreate this plot. *Hint: turn the `diet` variable into a factor with a set order.*
+
+```{r}
+#| label: recreation-visualize-1
+
+```
+
+## Extension
+
+Using the code chunk below, investigate a research question about this data, using the skills you have learned this week and in previous weeks of Academy. Some ideas:
+
+1. Is there an interaction effect between diet and blood pressure group?
+2. Does diet or blood pressure group affect whether or not a patient dropped out of the study?
+3. [any other research question of interest]
+
+
+Alternately, working with a data set of your own, complete the following:
+
+1. Read in your data
+2. If your data contains ...
+  ... date-time data, use a lubridate function to correctly format your date-time variables
+  ... string data, use a stringr function to manipulate your string variables
+  ... categorical data, use a forcats function to modify the factor levels of your categorical variables (reorder, recode, etc.)
+3. Using a table or graph, present a meaningful subset of your modified data
+
+
+```{r}
+#| label: extension
+
+```
