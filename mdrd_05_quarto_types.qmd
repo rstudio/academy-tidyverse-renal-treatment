@@ -57,13 +57,20 @@ Run the code below to see a table.
 ```{r}
 #| label: recreate-this-1
 #| message: false
-solution <- readr::read_csv("data/milestone05.csv")
+solution <- readr::read_csv(
+  "data/milestone05.csv",
+  col_types = cols(
+    diet = col_factor(c("very low-protein", "low-protein")),
+    bp   = col_factor(c("low", "normal"))
+  )
+)
+
 solution
 ```
 
 Your task is to use what you've learned about the stringr package to transform `mdrd_tidy` into this table. You will need to:
 
-1. Create two new columns, `diet` and `bp`, by separating the character strings in `treatment`. (*Hint* Look up the help page for `tidyr::separate()`)
+1. Create two new columns, `diet` and `bp`, by separating the character strings in `treatment`. (*Hint* Look up the help page for `tidyr::separate_wider_delim()`)
 
 2. Remove `"diet"` from the values in `diet`. Also remove `"bp"` from the values in `bp`. (*Hint* Look up the help page for `stringr::str_remove()`)
 
@@ -73,6 +80,8 @@ Your task is to use what you've learned about the stringr package to transform `
     + `"l"` = `"low-protein"`
 
 4. Recode the values in `bp` such that `"norm"` becomes `"normal"`.
+
+(*Hint* Look up the help page for `forcats::fct_recode()`)
 
 Work in the code chunk below. Save the result as `treatments`; we will use it in Part 3.
 
@@ -86,7 +95,7 @@ Run the following code chunk to test whether you have the same answer as the sol
 ```{r}
 #| label: compare
 #| eval: false
-waldo::compare(treatments, solution, tolerance = 1e-4, ignore_attr = .groups)
+waldo::compare(treatments, solution, tolerance = 1e-4, ignore_attr = "class")
 ```
 
 ### Part 3 - The role of factor orders in visualizations
