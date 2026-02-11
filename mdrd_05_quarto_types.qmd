@@ -129,7 +129,7 @@ This is a nice plot, but the order of `diet` on the x axis is arbitrary (alphabe
 
 #### Visualization
 
-Using the File Explorer on the left, navigate to the `images/` directory, then click on `milestone05.png` to open an image in the Editor pane.
+Using the File Explorer, navigate to the `images/` directory, then click on `milestone05.png` to open an image.
 
 Notice that "very low-protein" now appears to the left of "low-protein" on the x-axis. Your task is to recreate this plot.
 

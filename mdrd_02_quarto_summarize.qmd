@@ -77,7 +77,7 @@ waldo::compare(patient_summary, solution, tolerance = 1e-4, ignore_attr = .group
 
 ### Part 3 - Visualize
 
-Let's display our results visually. Using the File Explorer on the left, navigate to the `images/` directory, then click on `milestone02.png` to open an image in the Editor pane.
+Let's display our results visually. Using the File Explorer, navigate to the `images/` directory, then click on `milestone02.png` to open an image.
 
 Use the code chunk below to create the plot above. Begin with the `patient_summary` table. *Hint: you can adjust the width of the bins with the `binwidth` argument.*
 

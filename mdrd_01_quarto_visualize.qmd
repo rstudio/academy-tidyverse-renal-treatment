@@ -11,6 +11,8 @@ According to the [CDC](https://www.cdc.gov/kidneydisease/basics.html), more than
 
 ## How to complete a milestone
 
+Each milestone will require you to read and edit a Quarto document, like this one. **To learn how to use Quarto in Positron and RStudio, see here: https://quarto.org/docs/get-started/hello/positron.html.**
+
 For each milestone, you will need to: 
 
 1. **Recreate a result,** like a plot, table, or model. This will require you to use the skills you have studied that week.
@@ -73,7 +75,7 @@ Write your code in the following chunk:
 
 ### Part 3 - Visualize
 
-Using the File Explorer on the left, navigate to the `images/` directory, then click on `milestone01.png` to open an image in the Editor pane.
+Using the File Explorer, navigate to the `images/` directory, then click on `milestone01.png` to open an image.
 
 You should see a plot that displays observations from **patients who did not drop out of the study**.
 
