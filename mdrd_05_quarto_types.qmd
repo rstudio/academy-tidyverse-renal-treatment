@@ -20,7 +20,7 @@ To learn more about the variables contained in the data set(s), refer to the dat
 
 ## Data types
 
-In this milestone, you'll use stringr and forcats to investigate whether change in GFR over time varies between the very low-protein diet and the low-protein diet. 
+In this milestone, you'll use stringr and forcats to wrangle the treatment type data -- separating and recoding it into tidy `diet` and blood pressure (`bp`) variables for the very low-protein and low-protein diet groups. 
 
 ## Recreation
 
@@ -83,7 +83,7 @@ Your task is to use what you've learned about the stringr package to transform `
 
 (*Hint* Look up the help page for `forcats::fct_recode()`)
 
-Work in the code chunk below. Save the result as `treatments`; we will use it in Part 3.
+Work in the code chunk below. Save the result as `treatments`.
 
 ```{r}
 #| label: recreation-seasons
@@ -96,48 +96,6 @@ Run the following code chunk to test whether you have the same answer as the sol
 #| label: compare
 #| eval: false
 waldo::compare(treatments, solution, tolerance = 1e-4, ignore_attr = "class")
-```
-
-### Part 3 - The role of factor orders in visualizations
-
-Now that you have `diet` and `bp` variables, you can compute and visualize summaries for each diet and blood pressure group in the same manner as previous milestones. Run the chunk below to view a summary table.
-
-```{r}
-#| label: summary
-treatments_summary <- 
-  treatments %>%
-  group_by(diet, bp, ptid) %>%
-  summarize(
-    gfr_slope = (last(gfr, order_by = months) - first(gfr, order_by = months)) / max(months)
-  ) %>%
-  filter(!is.nan(gfr_slope)) %>% 
-  ungroup()
-
-treatments_summary
-```
-
-After you have run the chunk above to create `treatments_summary`, run the chunk below to visualize the data of `treatments_summary`.
-
-```{r}
-#| label: summary-plot
-#| eval: false
-ggplot(treatments_summary, aes(x = diet, y = gfr_slope)) +
-  geom_boxplot()
-```
-
-This is a nice plot, but the order of `diet` on the x axis is arbitrary (alphabetical). We may want to give the `diet` a more principled order before we publish this plot.
-
-#### Visualization
-
-Using the File Explorer, navigate to the `images/` directory, then click on `milestone05.png` to open an image.
-
-Notice that "very low-protein" now appears to the left of "low-protein" on the x-axis. Your task is to recreate this plot.
-
-Use the chunk below to recreate this plot. *Hint: turn the `diet` variable into a factor with a set order.*
-
-```{r}
-#| label: recreation-visualize-1
-
 ```
 
 ## Extension
